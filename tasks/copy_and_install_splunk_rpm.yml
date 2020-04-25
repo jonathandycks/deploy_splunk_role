@@ -1,0 +1,41 @@
+# Copy Splunk Enterprise RPM with 'copy' module to destination directory.  
+- name: Copy Splunk Files and Install
+  copy:
+    src: "{{ splunk_rpm_src_location }}"
+    dest: "{{ splunk_rpm_dest_location }}"
+    owner: deployer
+    mode: 0644
+
+# Install Splunk Enterprise with 'yum' module. 
+- name: Install Splunk Enterprise
+  yum: 
+    name: "{{ splunk_rpm_dest_location }}"
+    state: present
+
+# Start Splunk Enterprise for the first time with 'shell' module. 
+- name: Start Splunk Enterprise Accept License
+  shell:
+    /opt/splunk/bin/splunk start --accept-license --answer-yes --no-prompt --answer-yes
+
+# Configure Splunk Enterprise administrative users with the 'copy' module.
+- name: Copy Splunk User File
+  copy:
+    src: "{{ splunk_user_config_src_location }}"
+    dest: "{{ splunk_user_config_dest_location }}"
+    owner: deployer
+    mode: 0644
+
+# Add Splunk Enterprise ports to system firewall and restart splunkd with 'shell' module.
+- name: Add Splunk Ports to Firewall
+  shell: |
+    firewall-cmd --add-port=8000/tcp --permanent
+    firewall-cmd --add-port=8080/tcp --permanent
+    firewall-cmd --add-port=8089/tcp --permanent
+    firewall-cmd --add-port=8191/tcp --permanent
+    firewall-cmd --add-port=9887/tcp --permanent
+    firewall-cmd --add-port=9997/tcp --permanent
+    firewall-cmd --add-port=34567/tcp --permanent
+    systemctl restart firewalld
+    /opt/splunk/bin/splunk restart
+
+

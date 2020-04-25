@@ -1,0 +1,58 @@
+# Comment out the old Splunk Enterprise Server security key using 'replace' module.
+- name: Update 'server.conf' file with commending out [general] key.
+  replace: 
+    path: /opt/splunk/etc/system/local/server.conf
+    regexp: '(.*pass4SymmKey.*)'
+    replace: '#\1'
+  when: inventory_hostname in groups['splunk_sh_deployer']
+
+# Set new security key for the Splunk Enterprise Search Head Cluster using 'blockinfile' module.
+- name: Update 'server.conf' file with search head [shclustering] key.
+  blockinfile:
+    path: /opt/splunk/etc/system/local/server.conf
+    block: |
+      [shclustering]
+      pass4SymmKey = "{{ splunk_deployer_key }}"
+      shcluster_label = "{{ splunk_sh_label }}"
+    marker: no
+  when: inventory_hostname in groups['splunk_sh_deployer']
+
+# # Update 'server.conf' file with [clustering] configurations on Master Node with 'blockinfile' module.
+# - name: Update 'server.conf' file with [clustering] configurations and security key.
+#   blockinfile:
+#     path: /opt/splunk/etc/system/local/server.conf
+#     block: |
+#       [clustering]
+#       mode = master
+#       pass4SymmKey = "{{ splunk_index_cluster_key }}"
+#       cluster_label = "{{ splunk_indexer_cluster_label }}"
+#     marker: no
+#   when: inventory_hostname in groups['splunk_indexer_cluster_master']
+
+# # Update 'server.conf' file with [clustering] configurations on Slave Nodes with 'blockinfile' module.
+# - name: Update 'server.conf' file with [clustering] configurations and security key.
+#   blockinfile:
+#     path: /opt/splunk/etc/system/local/server.conf
+#     block: |
+#       [clustering]
+#       master_uri = "{{ splunk_index_cluster_master_url }}":8089
+#       mode = slave
+#       pass4SymmKey = "{{ splunk_index_cluster_key }}"
+#     marker: no
+#   when: inventory_hostname in groups['splunk_indexer_cluster']
+
+# Restart Index Cluster to finilize configuration with 'shell' module.
+# - name: Initialize Splunk Index Cluster
+#   shell: |
+#     /opt/splunk/bin/splunk restart
+#   when: inventory_hostname in groups['splunk_indexer_cluster_master']
+
+# # Restart Index Cluster to finilize configuration with 'shell' module.
+# - name: Initialize Splunk Index Cluster
+#   shell: |
+#     /opt/splunk/bin/splunk restart
+#   when: inventory_hostname in groups['splunk_indexer_cluster']
+
+
+
+

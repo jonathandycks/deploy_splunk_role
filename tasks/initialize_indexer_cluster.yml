@@ -1,0 +1,26 @@
+- name: Initialize Splunk Index Cluster Master
+  shell: |
+    /opt/splunk/bin/splunk edit cluster-config -mode master -replication_factor 3 -search_factor 2 -secret G00m-WOW! -cluster_label "{{splunk_indexer_cluster_label }}" -auth admin:G00m-WOW!
+    /opt/splunk/bin/splunk restart
+  when: inventory_hostname in groups['splunk_indexer_cluster_master']
+
+- name: Initialize Splunk Index Cluster Slaves
+  shell: |
+    /opt/splunk/bin/splunk edit cluster-config -mode slave -master_uri "{{ splunk_index_cluster_master_url }}":8089 -replication_port 9887 -secret G00m-WOW! -auth admin:G00m-WOW!
+    /opt/splunk/bin/splunk restart
+  when: inventory_hostname in groups['splunk_indexer_cluster']
+
+- name: Sleep for 30 seconds before Index Integration
+  wait_for:
+    timeout: 30
+
+- name: Integrate Search Head Cluster with Index Cluster
+  shell: |
+    /opt/splunk/bin/splunk edit cluster-config -mode searchhead -master_uri "{{ splunk_index_cluster_master_url }}":8089 -secret G00m-WOW! -auth admin:G00m-WOW!
+    /opt/splunk/bin/splunk restart
+  when: inventory_hostname in groups['splunk_search_cluster']
+
+
+
+
+  

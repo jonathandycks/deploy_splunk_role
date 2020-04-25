@@ -1,0 +1,7 @@
+---
+# Main play for installing and configuring Spunk Enterprise (Large Deployment).
+- import_tasks: copy_and_install_splunk_rpm.yml
+- import_tasks: distribute_clustering_configs.yml
+- import_tasks: initialize_sh_cluster.yml
+- import_tasks: initialize_indexer_cluster.yml
+

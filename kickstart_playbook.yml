@@ -1,0 +1,14 @@
+---
+- hosts: all
+  gather_facts: no
+  remote_user: deployer
+  become: yes
+  become_method: sudo
+  tasks:
+    - include_role:
+        name: /home/deployer/roles/deploy_splunk_role
+
+
+
+
+
