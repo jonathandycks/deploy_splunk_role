@@ -22,5 +22,5 @@
 
 - name: Make Splunk Search Head Node 001 Cluster Captain
   shell: |
-    /opt/splunk/bin/splunk bootstrap shcluster-captain -servers_list "https://10.10.20.71:8089,https://10.10.20.72:8089,https://10.10.20.73:8089" -auth admin:G00m-WOW!
+    /opt/splunk/bin/splunk bootstrap shcluster-captain -servers_list "{{ splunk_sh_001_url }}:8089,{{ splunk_sh_002_url }}:8089,{{ splunk_sh_003_url }}:8089" -auth admin:G00m-WOW!
   when: "'sh-001' in inventory_hostname"
