@@ -1,18 +1,18 @@
-splunk_rpm_src_location: '/home/deployer/software/splunk/splunk-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm'
+splunk_rpm_src_location: UPDATE WITH SOURCE LOCATION OF SPLUNK RPM PACKAGE
 splunk_rpm_dest_location: '/opt/splunk-8.0.3-a6754d8441bf-linux-2.6-x86_64.rpm'
 
-splunk_user_config_src_location: '/home/deployer/software/splunk/user-seed.conf'
+splunk_user_config_src_location: UPDATE WITH SOURCE LOCATION OF SPLUBK USER CONFIG FILE
 splunk_user_config_dest_location: '/opt/splunk/etc/system/local/user-seed.conf'
 
-splunk_sh_001: '10.10.20.71'
-splunk_sh_002: '10.10.20.72'
-splunk_sh_003: '10.10.20.73'
-splunk_sh_001_url: 'https://10.10.20.71'
-splunk_sh_002_url: 'https://10.10.20.72'
-splunk_sh_003_url: 'https://10.10.20.73'
-splunk_deployer_url: 'https://10.10.20.70'
-splunk_index_cluster_master_url: 'https://10.10.20.80'
-splunk_deployer_key: 'G00m-WOW!'
-splunk_sh_label: 'sh_cluster_001'
-splunk_index_cluster_key: 'G00m-WOW!'
-splunk_indexer_cluster_label: 'indexer_cluster_001'
+splunk_sh_001: UPDATE
+splunk_sh_002: UPDATE
+splunk_sh_003: UPDATE
+splunk_sh_001_url: 'https://UODATE'
+splunk_sh_002_url: 'https://UPDATE'
+splunk_sh_003_url: 'https://UPDATE'
+splunk_deployer_url: 'https://UPDATE'
+splunk_index_cluster_master_url: 'https://UPDATE'
+splunk_deployer_key: UPDATE
+splunk_sh_label: UPDATE
+splunk_index_cluster_key: UPDATE 
+splunk_indexer_cluster_label: UPDATE

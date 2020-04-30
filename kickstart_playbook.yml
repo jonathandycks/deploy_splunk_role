@@ -1,12 +1,12 @@
 ---
 - hosts: all
   gather_facts: no
-  remote_user: deployer
+  remote_user: UPDATE THIS USER TO WHATEVER YOU USE FOR REMOTE MANAGEMENT
   become: yes
   become_method: sudo
   tasks:
     - include_role:
-        name: /home/deployer/roles/deploy_splunk_role
+        name: /home/deployer/roles/jonathandycks.deploy_splunk_role
 
 
 

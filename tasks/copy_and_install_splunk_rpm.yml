@@ -6,9 +6,9 @@
     owner: deployer
     mode: 0644
 
-# Install Splunk Enterprise with 'yum' module. 
+# Install Splunk Enterprise with 'dnf' module. 
 - name: Install Splunk Enterprise
-  yum: 
+  dnf: 
     name: "{{ splunk_rpm_dest_location }}"
     state: present
 
